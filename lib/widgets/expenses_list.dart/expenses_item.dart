@@ -9,7 +9,8 @@ class ExpensesItem  extends StatelessWidget{
   @override  
 
   Widget build(BuildContext context){
-    return Card(
+    return 
+    Card(
       shadowColor: Color.fromARGB(255, 242, 188, 89),
       color: Color.fromARGB(255, 106, 232, 95),
       child: Padding(
@@ -28,9 +29,9 @@ class ExpensesItem  extends StatelessWidget{
                 const Spacer(),
                  Row(
                   children: [
-                    Icon(Icons.alarm),
+                    Icon(CategoryIcons[expense.category]),
                      SizedBox(width: 10,),
-                     Text(expense.data.toString())
+                     Text(expense.formatterdata)
                     
                   ],
                 )
