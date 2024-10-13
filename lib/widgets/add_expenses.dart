@@ -18,6 +18,14 @@ final _textcontroller  = TextEditingController();
 final _amountcontroller =  TextEditingController();
 
 
+
+
+void _opendatepicker(){
+  final now = DateTime.now();
+final fistDate =   DateTime(now.year-1, now.month, now.day);
+  showDatePicker(context: context, initialDate: now, firstDate:fistDate , lastDate: now);
+}
+
 @override  
 
 void dispose(){
@@ -36,26 +44,38 @@ super.dispose();
       children: [
         TextField(
           controller: _textcontroller,
-          maxLength: 100,
           decoration: InputDecoration(label:  Text('Expense name'),),
 
         ),
-        
-        TextField(
+        Row(children: [
+         Expanded(child: TextField(
           controller: _amountcontroller,
-          maxLength: 100,
           decoration: InputDecoration(
             prefixText: '\$' ,
             label: Text("Enter the Amount : ")),
           keyboardType: TextInputType.numberWithOptions()
 
-        ),
+        ),),
+
+        const SizedBox(width: 10,),
+        
+
+        Expanded(child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text("Select Date"),
+              IconButton(onPressed: _opendatepicker, icon: Icon(Icons.date_range))
+            ],
+        ),),]),
+        
         Row(
           children: [
-            TextButton(onPressed: (){}, child: Text("cancel")),
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text("cancel")),
             ElevatedButton(onPressed:(){ 
               print(_textcontroller.text,); 
-              print(_amountcontroller.value);}, 
+              print(_amountcontroller.text);}, 
               child: Text("Save"))
           ],
         ),
