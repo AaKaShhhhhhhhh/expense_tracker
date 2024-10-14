@@ -1,4 +1,6 @@
+import 'package:expense_tracker/models/exp.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddExpenses extends StatefulWidget{
   AddExpenses({super.key});
@@ -16,14 +18,22 @@ class _addexpensesState extends  State<AddExpenses> {
 final _textcontroller  = TextEditingController();
 
 final _amountcontroller =  TextEditingController();
+DateTime? _pickeddate;
+
+Category _selectedexpense = Category.lesure;
 
 
 
-
-void _opendatepicker(){
+void _opendatepicker() async {
   final now = DateTime.now();
 final fistDate =   DateTime(now.year-1, now.month, now.day);
-  showDatePicker(context: context, initialDate: now, firstDate:fistDate , lastDate: now);
+  final selecteddate = await showDatePicker(context: context,
+   initialDate: now, 
+   firstDate:fistDate , 
+   lastDate: now);
+    setState(() {
+      _pickeddate = selecteddate;
+    });
 }
 
 @override  
@@ -63,17 +73,48 @@ super.dispose();
         Expanded(child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("Select Date"),
+              Text(_pickeddate == null ? "NO  DATE SELECTED" : formatter.format(_pickeddate!),),
+
               IconButton(onPressed: _opendatepicker, icon: Icon(Icons.date_range))
             ],
-        ),),]),
+        ),
+        ),
+        ]
+        )
+        ,
         
         Row(
-          children: [
+          children: [ 
+            DropdownButton(items: Category.values
+            .map((Category) => DropdownMenuItem(
+              value: Category,
+              child: Text(
+                Category.name.toUpperCase())
+                )
+                )
+                .toList(),
+                 onChanged: 
+                 (value){
+                  if(value == null){
+                    return;
+                  }
+
+                  setState(() {
+                    _selectedexpense = value;
+                  });
+
+                 }
+                 ),
+              SizedBox(width: 40,),
+
             TextButton(onPressed: (){
+
               Navigator.pop(context);
-            }, child: Text("cancel")),
-            ElevatedButton(onPressed:(){ 
+            }, 
+            child: 
+            Text("cancel")),
+            ElevatedButton(
+              onPressed:(){ 
               print(_textcontroller.text,); 
               print(_amountcontroller.text);}, 
               child: Text("Save"))
