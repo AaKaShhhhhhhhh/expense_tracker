@@ -1,11 +1,13 @@
+import 'dart:math';
+
 import 'package:expense_tracker/models/exp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddExpenses extends StatefulWidget{
-  AddExpenses({super.key});
+  AddExpenses({super.key , required this.onAddExpense});
 
-
+final void Function(Exp expense) onAddExpense ;
  
   @override
 
@@ -36,6 +38,31 @@ final fistDate =   DateTime(now.year-1, now.month, now.day);
     });
 }
 
+void _storeexpensedata(){
+final enteredamount = double.tryParse(_amountcontroller.text); //tryParse("helloo") => null , tryParse("1") => 1
+final amountIncorrect = enteredamount == null || enteredamount<= 0;
+
+  if(_textcontroller.text.trim().isEmpty || amountIncorrect ||  _pickeddate == null ){
+
+showDialog(context: context, builder: (ctx) => AlertDialog(
+  title:  const Text(" Incorrect/Missing Values"),
+  content: const Text("Enter a Valid values"),
+  actions: [
+    TextButton(onPressed: () {
+      Navigator.pop(ctx);
+    },
+    child: const Text("Okay"),)
+  ],
+)
+);
+return;
+  }
+  widget.onAddExpense(Exp(title: _textcontroller.text, 
+  amaount: enteredamount, 
+  data: _pickeddate!, 
+  category: _selectedexpense));
+}
+
 @override  
 
 void dispose(){
@@ -49,7 +76,7 @@ super.dispose();
 
   Widget build(BuildContext context){
 
-    return Padding(padding: EdgeInsets.all(20),
+    return Padding(padding: EdgeInsets.fromLTRB(20,48,20,20),
     child: Column(
       children: [
         TextField(
@@ -80,8 +107,8 @@ super.dispose();
         ),
         ),
         ]
-        )
-        ,
+        ),
+        SizedBox(height:  30,),
         
         Row(
           children: [ 
@@ -105,7 +132,7 @@ super.dispose();
 
                  }
                  ),
-              SizedBox(width: 40,),
+              const Spacer(),
 
             TextButton(onPressed: (){
 
@@ -114,9 +141,9 @@ super.dispose();
             child: 
             Text("cancel")),
             ElevatedButton(
-              onPressed:(){ 
-              print(_textcontroller.text,); 
-              print(_amountcontroller.text);}, 
+              onPressed:
+              _storeexpensedata, 
+              
               child: Text("Save"))
           ],
         ),

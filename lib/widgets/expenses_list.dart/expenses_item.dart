@@ -21,7 +21,8 @@ class ExpensesItem  extends StatelessWidget{
         child: 
         Column(
           children: [
-            Text(expense.title),
+            Text(expense.title.toString()),
+            Text(expense.amaount.toString()),
             const SizedBox(width: 10,),
             Row(
               children: [

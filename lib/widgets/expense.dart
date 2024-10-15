@@ -16,7 +16,7 @@ class Expenses extends StatefulWidget{
 
 class _ExpenseState extends State<Expenses>{
   final List<Exp> _registeredExpence = [
-    Exp(title: 'Expense Tracker', 
+    Exp(title: 'expense name', 
     amaount: 69.99, 
     data: DateTime.now(), 
     category: Category.work),
@@ -24,10 +24,21 @@ class _ExpenseState extends State<Expenses>{
     Exp(title: 'cinema' , amaount: 300.00, data: DateTime.now(), category: Category.lesure)
 
   ];
+  void addExpense(Exp expense){
+    setState(() {
+    _registeredExpence.add(expense);
+  });}
+
+  void removeexpense( Exp expense){
+    setState(() {
+      _registeredExpence.remove(expense);
+    });
+  }
 
   void _openexpenseoverlay(){
-
-    showModalBottomSheet(context: context, builder: (builder){return AddExpenses();}
+    
+    showModalBottomSheet(context: context, builder: (builder){return AddExpenses(onAddExpense: addExpense,);},
+    isScrollControlled: true
 
       
     );
@@ -49,7 +60,7 @@ return  Scaffold(
   body: Column(
     children: [
       Text("The Chart"),
-      Expanded(child : Expenseslist(expenses:  _registeredExpence,))
+      Expanded(child : Expenseslist(expenses:  _registeredExpence, onRemoveexpense: removeexpense,))
     ],
   ),
 );
