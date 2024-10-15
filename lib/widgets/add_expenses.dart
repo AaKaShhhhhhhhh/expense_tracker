@@ -52,6 +52,7 @@ showDialog(context: context, builder: (ctx) => AlertDialog(
       Navigator.pop(ctx);
     },
     child: const Text("Okay"),)
+
   ],
 )
 );
@@ -61,6 +62,8 @@ return;
   amaount: enteredamount, 
   data: _pickeddate!, 
   category: _selectedexpense));
+
+  Navigator.pop(context);
 }
 
 @override  
@@ -76,7 +79,7 @@ super.dispose();
 
   Widget build(BuildContext context){
 
-    return Padding(padding: EdgeInsets.fromLTRB(20,48,20,20),
+    return Padding(padding: EdgeInsets.fromLTRB(16,48,16,16),
     child: Column(
       children: [
         TextField(
@@ -143,6 +146,7 @@ super.dispose();
             ElevatedButton(
               onPressed:
               _storeexpensedata, 
+              
               
               child: Text("Save"))
           ],

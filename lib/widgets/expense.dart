@@ -30,14 +30,31 @@ class _ExpenseState extends State<Expenses>{
   });}
 
   void removeexpense( Exp expense){
-    setState(() {
+    final expenseindex = _registeredExpence.indexOf(expense);
+    setState(() { 
       _registeredExpence.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration:  Duration(seconds: 2),
+        content:  Text("COMTENT DELETED"),
+        action: SnackBarAction(label: "Undo", onPressed: (){
+          setState(() {
+            _registeredExpence.insert(expenseindex, expense);
+          });
+        }),
+        )
+        );
   }
 
   void _openexpenseoverlay(){
     
-    showModalBottomSheet(context: context, builder: (builder){return AddExpenses(onAddExpense: addExpense,);},
+    showModalBottomSheet(context: context, 
+    builder: (builder){
+      return AddExpenses(
+        onAddExpense: addExpense,);},
+
     isScrollControlled: true
 
       
@@ -48,6 +65,14 @@ class _ExpenseState extends State<Expenses>{
   @override
   
   Widget build(BuildContext context){
+    Widget mainContent = const Center(child: Text("NO DATA YET , ADD DATA !"),) ;
+
+    if(_registeredExpence.isNotEmpty){
+      mainContent = Expenseslist(
+        expenses:  _registeredExpence, 
+        onRemoveexpense: removeexpense,);
+
+    }
 
 return  Scaffold(
   appBar: AppBar(
@@ -60,7 +85,7 @@ return  Scaffold(
   body: Column(
     children: [
       Text("The Chart"),
-      Expanded(child : Expenseslist(expenses:  _registeredExpence, onRemoveexpense: removeexpense,))
+      Expanded(child : mainContent  )
     ],
   ),
 );
