@@ -22,8 +22,8 @@ class Exp{
 
 
   final String ID;
-  final String title;
-  final double amaount;
+  String title;
+  double amaount;
   final DateTime data;
   final Category category;
 

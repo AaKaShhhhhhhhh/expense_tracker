@@ -29,6 +29,9 @@ class _ExpenseState extends State<Expenses>{
     _registeredExpence.add(expense);
   });}
 
+  
+
+
   void removeexpense( Exp expense){
     final expenseindex = _registeredExpence.indexOf(expense);
     setState(() { 
@@ -47,21 +50,21 @@ class _ExpenseState extends State<Expenses>{
         )
         );
   }
+  
 
   void _openexpenseoverlay(){
-    
-    showModalBottomSheet(context: context, 
+      showModalBottomSheet(context: context, 
     builder: (builder){
       return AddExpenses(
-        onAddExpense: addExpense,);},
-
-    isScrollControlled: true
-
-      
+        onAddExpense: addExpense,
+        );},
+    
+    isScrollControlled: true,
+    
     );
-
-
+    
   }
+ 
   @override
   
   Widget build(BuildContext context){
@@ -69,8 +72,11 @@ class _ExpenseState extends State<Expenses>{
 
     if(_registeredExpence.isNotEmpty){
       mainContent = Expenseslist(
+        asd  : _openexpenseoverlay,
         expenses:  _registeredExpence, 
-        onRemoveexpense: removeexpense,);
+        onRemoveexpense: removeexpense,
+
+        );
 
     }
 

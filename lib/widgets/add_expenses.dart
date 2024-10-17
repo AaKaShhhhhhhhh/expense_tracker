@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddExpenses extends StatefulWidget{
-  AddExpenses({super.key , required this.onAddExpense});
+  AddExpenses({super.key , required this.onAddExpense });
+
 
 final void Function(Exp expense) onAddExpense ;
  
@@ -51,19 +52,22 @@ showDialog(context: context, builder: (ctx) => AlertDialog(
     TextButton(onPressed: () {
       Navigator.pop(ctx);
     },
-    child: const Text("Okay"),)
+    child: const Text("Okay"),),
+    
 
   ],
 )
+
 );
 return;
+
   }
   widget.onAddExpense(Exp(title: _textcontroller.text, 
   amaount: enteredamount, 
   data: _pickeddate!, 
   category: _selectedexpense));
-
-  Navigator.pop(context);
+Navigator.pop(context);
+  
 }
 
 @override  
