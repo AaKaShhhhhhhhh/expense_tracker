@@ -23,7 +23,7 @@ final _textcontroller  = TextEditingController();
 final _amountcontroller =  TextEditingController();
 DateTime? _pickeddate;
 
-Category _selectedexpense = Category.lesure;
+Category _selectedexpense = Category.work;
 
 
 
@@ -120,7 +120,7 @@ super.dispose();
         Row(
           children: [ 
             DropdownButton(items: Category.values
-            .map((Category) => DropdownMenuItem(
+            .map((Category Category) => DropdownMenuItem(
               value: Category,
               child: Text(
                 Category.name.toUpperCase())
@@ -135,8 +135,9 @@ super.dispose();
 
                   setState(() {
                     _selectedexpense = value;
+                   
                   });
-
+                  
                  }
                  ),
               const Spacer(),

@@ -23,9 +23,9 @@ class ExpensesItem  extends StatelessWidget{
   Widget build(BuildContext context){
     return 
     Card(
-      shadowColor: Color.fromARGB(255, 70, 47, 4),
+      
       borderOnForeground: true,
-      color: Color.fromARGB(229, 114, 182, 186),
+      
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,

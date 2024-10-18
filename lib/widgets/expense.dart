@@ -41,7 +41,7 @@ class _ExpenseState extends State<Expenses>{
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration:  Duration(seconds: 2),
-        content:  Text("COMTENT DELETED"),
+        content:  Text("EXPENSE DELETED"),
         action: SnackBarAction(label: "Undo", onPressed: (){
           setState(() {
             _registeredExpence.insert(expenseindex, expense);
@@ -83,7 +83,7 @@ class _ExpenseState extends State<Expenses>{
 return  Scaffold(
   appBar: AppBar(
     title: Text('Expense Tracker'),
-    backgroundColor: Color.fromARGB(144, 44, 118, 131),
+    
     actions: [
       IconButton(onPressed: _openexpenseoverlay , icon: Icon(Icons.add))
     ],
