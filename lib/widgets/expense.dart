@@ -1,4 +1,5 @@
 import 'package:expense_tracker/widgets/add_expenses.dart';
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list.dart/expensesList.dart';
 import 'package:expense_tracker/models/exp.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ return  Scaffold(
   ),
   body: Column(
     children: [
-      Text("The Chart"),
+      Chart(expenses: _registeredExpence),
       Expanded(child : mainContent  )
     ],
   ),

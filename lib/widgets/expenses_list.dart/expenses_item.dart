@@ -39,27 +39,33 @@ class ExpensesItem  extends StatelessWidget{
               children:[
               Center(
                 child: 
-            Text(expense.title.toString()),),
+            Text(expense.title,
+             style: Theme.of(context).textTheme.titleLarge,
+             ),
+             ),
             
             Spacer(),
 
             ElevatedButton(
+              
                 onPressed: func,
+                
                
-               child: Icon(Icons.edit)),]
+               child: Icon(Icons.edit),
+               style: ButtonStyle(padding:
+                MaterialStateProperty.all<EdgeInsets>(
+            EdgeInsets.all(1))),
+               ),]
                ),
-            Text(expense.amaount.toString()),
-            const SizedBox(width: 10,),
-
             
+            const SizedBox(width: 50,),
+
           
-
-
             Row(
               children: [
                 Text('\$${expense.amaount.toStringAsFixed(2)}'),
                 const Spacer(), 
-                
+                SizedBox(height: 70,),
                  Row(
                   
                   children: [
@@ -67,7 +73,8 @@ class ExpensesItem  extends StatelessWidget{
                       
                       
                
-                    Icon(CategoryIcons[expense.category]),
+                    Icon(CategoryIcons[expense.category],  size: 20, color: Theme.of(context).colorScheme.primary), 
+
                      SizedBox(width: 30,),
                      Text(expense.formatterdata),]
                      
