@@ -83,82 +83,85 @@ super.dispose();
 
   Widget build(BuildContext context){
 
-    return Padding(padding: EdgeInsets.fromLTRB(16,48,16,16),
-    child: Column(
-      children: [
-        TextField(
-          controller: _textcontroller,
-          decoration: InputDecoration(label:  Text('Expense name'),),
-
-        ),
-        Row(children: [
-         Expanded(child: TextField(
-          controller: _amountcontroller,
-          decoration: InputDecoration(
-            prefixText: '\$' ,
-            label: Text("Enter the Amount : ")),
-          keyboardType: TextInputType.numberWithOptions()
-
-        ),),
-
-        const SizedBox(width: 10,),
+    final keyboardspace = MediaQuery.of(context).viewInsets.bottom;
+      return SingleChildScrollView(
+        child: Padding(padding: EdgeInsets.fromLTRB(16,48,16,keyboardspace+16),
+            child: Column(
+        children: [
+          TextField(
+            controller: _textcontroller,
+            decoration: InputDecoration(label:  Text('Expense name'),),
         
-
-        Expanded(child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(_pickeddate == null ? "NO  DATE SELECTED" : formatter.format(_pickeddate!),),
-
-              IconButton(onPressed: _opendatepicker, icon: Icon(Icons.date_range))
+          ),
+          Row(children: [
+           Expanded(child: TextField(
+            controller: _amountcontroller,
+            decoration: InputDecoration(
+              prefixText: '\$' ,
+              label: Text("Enter the Amount : ")),
+            keyboardType: TextInputType.numberWithOptions()
+        
+          ),),
+        
+          const SizedBox(width: 10,),
+          
+        
+          Expanded(child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(_pickeddate == null ? "NO  DATE SELECTED" : formatter.format(_pickeddate!),),
+        
+                IconButton(onPressed: _opendatepicker, icon: Icon(Icons.date_range))
+              ],
+          ),
+          ),
+          ]
+          ),
+          SizedBox(height:  30,),
+          
+          Row(
+            children: [ 
+              DropdownButton(items: Category.values
+              .map((Category Category) => DropdownMenuItem(
+                value: Category,
+                child: Text(
+                  Category.name.toUpperCase())
+                  )
+                  )
+                  .toList(),
+                   onChanged: 
+                   (value){
+                    if(value == null){
+                      return;
+                    }
+        
+                    setState(() {
+                      _selectedexpense = value;
+                     
+                    });
+                    
+                   }
+                   ),
+                const Spacer(),
+        
+              TextButton(onPressed: (){
+        
+                Navigator.pop(context);
+              }, 
+              child: 
+              Text("cancel")),
+              ElevatedButton(
+                onPressed:
+                _storeexpensedata, 
+                
+                
+                child: Text("Save"))
             ],
-        ),
-        ),
-        ]
-        ),
-        SizedBox(height:  30,),
-        
-        Row(
-          children: [ 
-            DropdownButton(items: Category.values
-            .map((Category Category) => DropdownMenuItem(
-              value: Category,
-              child: Text(
-                Category.name.toUpperCase())
-                )
-                )
-                .toList(),
-                 onChanged: 
-                 (value){
-                  if(value == null){
-                    return;
-                  }
-
-                  setState(() {
-                    _selectedexpense = value;
-                   
-                  });
-                  
-                 }
-                 ),
-              const Spacer(),
-
-            TextButton(onPressed: (){
-
-              Navigator.pop(context);
-            }, 
-            child: 
-            Text("cancel")),
-            ElevatedButton(
-              onPressed:
-              _storeexpensedata, 
-              
-              
-              child: Text("Save"))
-          ],
-        ),
-        
-        
-      ],
-    ),);
+          ),
+          
+          
+        ],
+            ),),
+      );
   }
 }

@@ -69,6 +69,8 @@ class _ExpenseState extends State<Expenses>{
   @override
   
   Widget build(BuildContext context){
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(child: Text("NO DATA YET , ADD DATA !"),) ;
 
     if(_registeredExpence.isNotEmpty){
@@ -89,11 +91,20 @@ return  Scaffold(
       IconButton(onPressed: _openexpenseoverlay , icon: Icon(Icons.add))
     ],
   ),
-  body: Column(
+  body: width < 600? Column(
     children: [
       Chart(expenses: _registeredExpence),
-      Expanded(child : mainContent  )
+      Expanded(child : mainContent
+      ),
     ],
+  ): Row(
+    children: [
+      Expanded(child : Chart(expenses:  _registeredExpence,)),
+      Expanded(child : mainContent
+      ),
+    ],
+    
+
   ),
 );
   }
